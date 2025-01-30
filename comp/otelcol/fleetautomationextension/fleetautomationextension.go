@@ -43,6 +43,8 @@ func (e *fleetAutomationExtension) NotifyConfig(_ context.Context, conf *confmap
 	return nil
 }
 
+// function should only be called when holding mutex
+// used for troubleshooting only, might be removed in production
 func (e *fleetAutomationExtension) printCollectorConfig() {
 	configMap := e.collectorConfig.ToStringMap()
 	configJSON, err := json.MarshalIndent(configMap, "", "  ")
