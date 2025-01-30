@@ -16,31 +16,31 @@ import (
 	"google.golang.org/protobuf/runtime/protoimpl"
 )
 
-type InternalIntakeRequest struct {
+type internalIntakeRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Events []*InternalIntakeRequest_Event `protobuf:"bytes,1,rep,name=events,proto3" json:"events,omitempty"`
+	Events []*internalIntakeRequestEvent `protobuf:"bytes,1,rep,name=events,proto3" json:"events,omitempty"`
 }
 
-func (x *InternalIntakeRequest) Reset() {
-	*x = InternalIntakeRequest{}
+func (x *internalIntakeRequest) Reset() {
+	*x = internalIntakeRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_logs_internal_intake_request_proto_msgTypes[0]
+		mi := &fileLogsInternalIntakeRequestProtoMsgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *InternalIntakeRequest) String() string {
+func (x *internalIntakeRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*InternalIntakeRequest) ProtoMessage() {}
+func (*internalIntakeRequest) ProtoMessage() {}
 
-func (x *InternalIntakeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_logs_internal_intake_request_proto_msgTypes[0]
+func (x *internalIntakeRequest) ProtoReflect() protoreflect.Message {
+	mi := &fileLogsInternalIntakeRequestProtoMsgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -51,46 +51,46 @@ func (x *InternalIntakeRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use InternalIntakeRequest.ProtoReflect.Descriptor instead.
-func (*InternalIntakeRequest) Descriptor() ([]byte, []int) {
-	return file_logs_internal_intake_request_proto_rawDescGZIP(), []int{0}
+// Deprecated: Use internalIntakeRequest.ProtoReflect.Descriptor instead.
+func (*internalIntakeRequest) Descriptor() ([]byte, []int) {
+	return fileLogsInternalIntakeRequestProtoRawDescGZIP(), []int{0}
 }
 
-func (x *InternalIntakeRequest) GetEvents() []*InternalIntakeRequest_Event {
+func (x *internalIntakeRequest) GetEvents() []*internalIntakeRequestEvent {
 	if x != nil {
 		return x.Events
 	}
 	return nil
 }
 
-type InternalIntakeRequest_Event struct {
+type internalIntakeRequestEvent struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
 	Payload   []byte                `protobuf:"bytes,1,opt,name=payload,proto3" json:"payload,omitempty"`
-	OrgId     *wrappers.Int64Value  `protobuf:"bytes,2,opt,name=org_id,json=orgId,proto3" json:"org_id,omitempty"`
-	Uuid      *wrappers.StringValue `protobuf:"bytes,3,opt,name=uuid,proto3" json:"uuid,omitempty"`
+	OrgID     *wrappers.Int64Value  `protobuf:"bytes,2,opt,name=org_id,json=orgId,proto3" json:"org_id,omitempty"`
+	UUID      *wrappers.StringValue `protobuf:"bytes,3,opt,name=uuid,proto3" json:"uuid,omitempty"`
 	Timestamp *wrappers.Int64Value  `protobuf:"bytes,4,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 }
 
-func (x *InternalIntakeRequest_Event) Reset() {
-	*x = InternalIntakeRequest_Event{}
+func (x *internalIntakeRequestEvent) Reset() {
+	*x = internalIntakeRequestEvent{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_logs_internal_intake_request_proto_msgTypes[1]
+		mi := &fileLogsInternalIntakeRequestProtoMsgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *InternalIntakeRequest_Event) String() string {
+func (x *internalIntakeRequestEvent) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*InternalIntakeRequest_Event) ProtoMessage() {}
+func (*internalIntakeRequestEvent) ProtoMessage() {}
 
-func (x *InternalIntakeRequest_Event) ProtoReflect() protoreflect.Message {
-	mi := &file_logs_internal_intake_request_proto_msgTypes[1]
+func (x *internalIntakeRequestEvent) ProtoReflect() protoreflect.Message {
+	mi := &fileLogsInternalIntakeRequestProtoMsgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -101,42 +101,42 @@ func (x *InternalIntakeRequest_Event) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use InternalIntakeRequest_Event.ProtoReflect.Descriptor instead.
-func (*InternalIntakeRequest_Event) Descriptor() ([]byte, []int) {
-	return file_logs_internal_intake_request_proto_rawDescGZIP(), []int{0, 0}
+// Deprecated: Use internalIntakeRequestEvent.ProtoReflect.Descriptor instead.
+func (*internalIntakeRequestEvent) Descriptor() ([]byte, []int) {
+	return fileLogsInternalIntakeRequestProtoRawDescGZIP(), []int{0, 0}
 }
 
-func (x *InternalIntakeRequest_Event) GetPayload() []byte {
+func (x *internalIntakeRequestEvent) GetPayload() []byte {
 	if x != nil {
 		return x.Payload
 	}
 	return nil
 }
 
-func (x *InternalIntakeRequest_Event) GetOrgId() *wrappers.Int64Value {
+func (x *internalIntakeRequestEvent) GetOrgID() *wrappers.Int64Value {
 	if x != nil {
-		return x.OrgId
+		return x.OrgID
 	}
 	return nil
 }
 
-func (x *InternalIntakeRequest_Event) GetUuid() *wrappers.StringValue {
+func (x *internalIntakeRequestEvent) GetUUID() *wrappers.StringValue {
 	if x != nil {
-		return x.Uuid
+		return x.UUID
 	}
 	return nil
 }
 
-func (x *InternalIntakeRequest_Event) GetTimestamp() *wrappers.Int64Value {
+func (x *internalIntakeRequestEvent) GetTimestamp() *wrappers.Int64Value {
 	if x != nil {
 		return x.Timestamp
 	}
 	return nil
 }
 
-var File_logs_internal_intake_request_proto protoreflect.FileDescriptor
+var fileLogsInternalIntakeRequestProto protoreflect.FileDescriptor
 
-var file_logs_internal_intake_request_proto_rawDesc = []byte{
+var fileLogsInternalIntakeRequestProtoRawDesc = []byte{
 	0x0a, 0x22, 0x6c, 0x6f, 0x67, 0x73, 0x2f, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x5f,
 	0x69, 0x6e, 0x74, 0x61, 0x6b, 0x65, 0x5f, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x70,
 	0x72, 0x6f, 0x74, 0x6f, 0x12, 0x02, 0x70, 0x62, 0x1a, 0x1e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65,
@@ -165,29 +165,29 @@ var file_logs_internal_intake_request_proto_rawDesc = []byte{
 }
 
 var (
-	file_logs_internal_intake_request_proto_rawDescOnce sync.Once
-	file_logs_internal_intake_request_proto_rawDescData = file_logs_internal_intake_request_proto_rawDesc
+	fileLogsInternalIntakeRequestProtoRawDescOnce sync.Once
+	fileLogsInternalIntakeRequestProtoRawDescData = fileLogsInternalIntakeRequestProtoRawDesc
 )
 
-func file_logs_internal_intake_request_proto_rawDescGZIP() []byte {
-	file_logs_internal_intake_request_proto_rawDescOnce.Do(func() {
-		file_logs_internal_intake_request_proto_rawDescData = protoimpl.X.CompressGZIP(file_logs_internal_intake_request_proto_rawDescData)
+func fileLogsInternalIntakeRequestProtoRawDescGZIP() []byte {
+	fileLogsInternalIntakeRequestProtoRawDescOnce.Do(func() {
+		fileLogsInternalIntakeRequestProtoRawDescData = protoimpl.X.CompressGZIP(fileLogsInternalIntakeRequestProtoRawDescData)
 	})
-	return file_logs_internal_intake_request_proto_rawDescData
+	return fileLogsInternalIntakeRequestProtoRawDescData
 }
 
-var file_logs_internal_intake_request_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_logs_internal_intake_request_proto_goTypes = []any{
-	(*InternalIntakeRequest)(nil),       // 0: pb.InternalIntakeRequest
-	(*InternalIntakeRequest_Event)(nil), // 1: pb.InternalIntakeRequest.Event
-	(*wrappers.Int64Value)(nil),         // 2: google.protobuf.Int64Value
-	(*wrappers.StringValue)(nil),        // 3: google.protobuf.StringValue
+var fileLogsInternalIntakeRequestProtoMsgTypes = make([]protoimpl.MessageInfo, 2)
+var fileLogsInternalIntakeRequestProtoGoTypes = []any{
+	(*internalIntakeRequest)(nil),      // 0: pb.internalIntakeRequest
+	(*internalIntakeRequestEvent)(nil), // 1: pb.internalIntakeRequest.Event
+	(*wrappers.Int64Value)(nil),        // 2: google.protobuf.Int64Value
+	(*wrappers.StringValue)(nil),       // 3: google.protobuf.StringValue
 }
-var file_logs_internal_intake_request_proto_depIdxs = []int32{
-	1, // 0: pb.InternalIntakeRequest.events:type_name -> pb.InternalIntakeRequest.Event
-	2, // 1: pb.InternalIntakeRequest.Event.org_id:type_name -> google.protobuf.Int64Value
-	3, // 2: pb.InternalIntakeRequest.Event.uuid:type_name -> google.protobuf.StringValue
-	2, // 3: pb.InternalIntakeRequest.Event.timestamp:type_name -> google.protobuf.Int64Value
+var fileLogsInternalIntakeRequestProtoDepIdxs = []int32{
+	1, // 0: pb.internalIntakeRequest.events:type_name -> pb.internalIntakeRequest.Event
+	2, // 1: pb.internalIntakeRequest.Event.org_id:type_name -> google.protobuf.Int64Value
+	3, // 2: pb.internalIntakeRequest.Event.uuid:type_name -> google.protobuf.StringValue
+	2, // 3: pb.internalIntakeRequest.Event.timestamp:type_name -> google.protobuf.Int64Value
 	4, // [4:4] is the sub-list for method output_type
 	4, // [4:4] is the sub-list for method input_type
 	4, // [4:4] is the sub-list for extension type_name
@@ -195,14 +195,14 @@ var file_logs_internal_intake_request_proto_depIdxs = []int32{
 	0, // [0:4] is the sub-list for field type_name
 }
 
-func init() { file_logs_internal_intake_request_proto_init() }
-func file_logs_internal_intake_request_proto_init() {
-	if File_logs_internal_intake_request_proto != nil {
+func init() { fileLogsInternalIntakeRequestProtoInit() }
+func fileLogsInternalIntakeRequestProtoInit() {
+	if fileLogsInternalIntakeRequestProto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_logs_internal_intake_request_proto_msgTypes[0].Exporter = func(v any, i int) any {
-			switch v := v.(*InternalIntakeRequest); i {
+		fileLogsInternalIntakeRequestProtoMsgTypes[0].Exporter = func(v any, i int) any {
+			switch v := v.(*internalIntakeRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -213,8 +213,8 @@ func file_logs_internal_intake_request_proto_init() {
 				return nil
 			}
 		}
-		file_logs_internal_intake_request_proto_msgTypes[1].Exporter = func(v any, i int) any {
-			switch v := v.(*InternalIntakeRequest_Event); i {
+		fileLogsInternalIntakeRequestProtoMsgTypes[1].Exporter = func(v any, i int) any {
+			switch v := v.(*internalIntakeRequestEvent); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -230,18 +230,18 @@ func file_logs_internal_intake_request_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_logs_internal_intake_request_proto_rawDesc,
+			RawDescriptor: fileLogsInternalIntakeRequestProtoRawDesc,
 			NumEnums:      0,
 			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_logs_internal_intake_request_proto_goTypes,
-		DependencyIndexes: file_logs_internal_intake_request_proto_depIdxs,
-		MessageInfos:      file_logs_internal_intake_request_proto_msgTypes,
+		GoTypes:           fileLogsInternalIntakeRequestProtoGoTypes,
+		DependencyIndexes: fileLogsInternalIntakeRequestProtoDepIdxs,
+		MessageInfos:      fileLogsInternalIntakeRequestProtoMsgTypes,
 	}.Build()
-	File_logs_internal_intake_request_proto = out.File
-	file_logs_internal_intake_request_proto_rawDesc = nil
-	file_logs_internal_intake_request_proto_goTypes = nil
-	file_logs_internal_intake_request_proto_depIdxs = nil
+	fileLogsInternalIntakeRequestProto = out.File
+	fileLogsInternalIntakeRequestProtoRawDesc = nil
+	fileLogsInternalIntakeRequestProtoGoTypes = nil
+	fileLogsInternalIntakeRequestProtoDepIdxs = nil
 }

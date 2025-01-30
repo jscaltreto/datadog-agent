@@ -13,10 +13,10 @@ import (
 	"google.golang.org/protobuf/types/known/structpb"
 )
 
-var file_domains_redapl_shared_resourcespb_proto_resource_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
-var file_domains_redapl_shared_resourcespb_proto_async_intake_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var fileDomainsRedaplSharedResourcespbProtoResourceProtoMsgTypes = make([]protoimpl.MessageInfo, 20)
+var fileDomainsRedaplSharedResourcespbProtoAsyncIntakeProtoMsgTypes = make([]protoimpl.MessageInfo, 1)
 
-type RedaplEvent struct {
+type redaplEvent struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -29,30 +29,35 @@ type RedaplEvent struct {
 	Message []byte `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
 }
 
-func (x *RedaplEvent) Reset() {
-	*x = RedaplEvent{}
+// Reset implements Proto interface
+func (x *redaplEvent) Reset() {
+	*x = redaplEvent{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_domains_redapl_shared_resourcespb_proto_async_intake_proto_msgTypes[0]
+		mi := &fileDomainsRedaplSharedResourcespbProtoAsyncIntakeProtoMsgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *RedaplEvent) String() string {
+// String implements Proto Interface
+func (x *redaplEvent) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (x *RedaplEvent) GetMessage() []byte {
+// GetMessage implements Proto Interface
+func (x *redaplEvent) GetMessage() []byte {
 	if x != nil {
 		return x.Message
 	}
 	return nil
 }
 
-func (*RedaplEvent) ProtoMessage() {}
+// ProtoMessage implements Proto Interface
+func (*redaplEvent) ProtoMessage() {}
 
-func (x *RedaplEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_domains_redapl_shared_resourcespb_proto_async_intake_proto_msgTypes[0]
+// ProtoReflect implements Proto Interface
+func (x *redaplEvent) ProtoReflect() protoreflect.Message {
+	mi := &fileDomainsRedaplSharedResourcespbProtoAsyncIntakeProtoMsgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -63,19 +68,22 @@ func (x *RedaplEvent) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
+// ProtoMessage implements Proto interface
 func (*RawResourceV3) ProtoMessage() {}
 
+// Reset implements Proto interface
 func (x *RawResourceV3) Reset() {
 	*x = RawResourceV3{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_domains_redapl_shared_resourcespb_proto_resource_proto_msgTypes[5]
+		mi := &fileDomainsRedaplSharedResourcespbProtoResourceProtoMsgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
+// ProtoReflect implements Proto interface
 func (x *RawResourceV3) ProtoReflect() protoreflect.Message {
-	mi := &file_domains_redapl_shared_resourcespb_proto_resource_proto_msgTypes[5]
+	mi := &fileDomainsRedaplSharedResourcespbProtoResourceProtoMsgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -86,18 +94,19 @@ func (x *RawResourceV3) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
+// String implements Proto interface
 func (x *RawResourceV3) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-// BuildMetadata holds metadata for the migrator, when available, it provides additional information of the migration
+// MigrationBuildMetadata holds metadata for the migrator, when available, it provides additional information of the migration
 // that was ran over the resource
 type MigrationBuildMetadata struct {
 	BuildCommit string
 	BuildDate   time.Time
 }
 
-// // MigrationRecord is an internal type within the metadata to reflect a migration applied to a resource
+// MigrationRecordMetadata is an internal type within the metadata to reflect a migration applied to a resource
 type MigrationRecordMetadata struct {
 	RevisionID        string
 	RevisionCreatedAt time.Time
@@ -109,7 +118,7 @@ type MigrationRecordMetadata struct {
 type MigrationDerived struct {
 	FromResourceType string
 	FromResourceName string
-	FromRevisionId   string
+	FromRevisionID   string
 }
 
 // MigrationTestMetadata describes a shadow resource
@@ -174,5 +183,5 @@ type RawResourceV3 struct {
 	Meta         InternalMetadata
 	Version      SchemaVersion
 	Scope        string
-	FieldsJson   []byte
+	FieldsJSON   []byte
 }

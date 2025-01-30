@@ -14,7 +14,7 @@ func NewStringSet() StringSet {
 	return make(StringSet)
 }
 
-// NewStringSet returns a new empty string set.
+// NewStringSetFromSlice returns a new string set.
 func NewStringSetFromSlice(sl []string) StringSet {
 	ss := make(StringSet)
 	for _, s := range sl {

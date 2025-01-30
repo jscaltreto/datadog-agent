@@ -39,10 +39,6 @@ const (
 	agentMetadataTrack        = "agentmetadata"
 )
 
-type reporter interface {
-	FlushStats()
-}
-
 // Clock provides an interface to get current time
 type Clock interface {
 	Now() time.Time
@@ -56,11 +52,6 @@ func (SystemClock) Now() time.Time { return time.Now() }
 
 func getSupportedTracks() []string {
 	return []string{agentMetadataTrack}
-}
-
-type resourcesClientDistribution struct {
-	name        string
-	defaultTags []string
 }
 
 // AsyncIntakeClientConfig holds configurations for the resource grpc client
@@ -142,7 +133,7 @@ type RedaplAsyncIntakeClient interface {
 // HTTPRedaplAsyncIntakeClient implements RedaplAsyncIntakeClient
 type HTTPRedaplAsyncIntakeClient struct {
 	clock  Clock
-	client HttpClient
+	client HTTPClient
 	cfg    *AsyncIntakeClientConfig
 	log    *zap.Logger
 }
@@ -155,9 +146,9 @@ type SendError struct {
 	ShouldExit bool
 }
 
-// HttpClient is an interface that http.Client implements
+// HTTPClient is an interface that http.Client implements
 // This is needed in order to be able to mock http.Client
-type HttpClient interface {
+type HTTPClient interface {
 	Do(req *http.Request) (*http.Response, error)
 }
 
@@ -218,7 +209,7 @@ func (c *HTTPRedaplAsyncIntakeClient) SendBatch(ctx context.Context, source stri
 		return err
 	}
 
-	err = c.send(ctx, body, len(resources))
+	err = c.send(ctx, body)
 
 	if err != nil {
 		return err
@@ -227,7 +218,7 @@ func (c *HTTPRedaplAsyncIntakeClient) SendBatch(ctx context.Context, source stri
 	return nil
 }
 
-func (c *HTTPRedaplAsyncIntakeClient) send(ctx context.Context, body []byte, itemCount int) error {
+func (c *HTTPRedaplAsyncIntakeClient) send(ctx context.Context, body []byte) error {
 	doRequest := func() error {
 		url := fmt.Sprintf(internalIntakeURLTemplate, c.cfg.Endpoint, c.cfg.Track)
 		reqCtx, cancel := context.WithTimeout(ctx, c.cfg.Timeout)
@@ -255,7 +246,7 @@ func (c *HTTPRedaplAsyncIntakeClient) send(ctx context.Context, body []byte, ite
 			_, _ = io.Copy(buf, res.Body)
 			respBody := buf.String()
 
-			var reqProto InternalIntakeRequest
+			var reqProto internalIntakeRequest
 			_ = proto.Unmarshal(body, &reqProto)
 			reqString := reqProto.String()
 
@@ -284,15 +275,15 @@ func (c *HTTPRedaplAsyncIntakeClient) send(ctx context.Context, body []byte, ite
 		return nil
 	}
 
-	backoffRetrier := c.getBackoffRetrier()
+	backoffRetrier := c.getbackoffRetrier()
 	if err := backoffRetrier.DoContext(ctx, doAndLogRequest); err != nil {
 		return err
 	}
 	return nil
 }
 
-func createRequest(now time.Time, resources []RawResourceV3, source string) (*InternalIntakeRequest, error) {
-	var events []*InternalIntakeRequest_Event
+func createRequest(now time.Time, resources []RawResourceV3, source string) (*internalIntakeRequest, error) {
+	var events []*internalIntakeRequestEvent
 	for _, msg := range resources {
 
 		rProto := &RawResourceV3{
@@ -309,7 +300,7 @@ func createRequest(now time.Time, resources []RawResourceV3, source string) (*In
 			return nil, err
 		}
 
-		redaplEvent, err := proto.Marshal(&RedaplEvent{
+		redaplEvent, err := proto.Marshal(&redaplEvent{
 			Source:  source,
 			Message: ser,
 		})
@@ -317,21 +308,21 @@ func createRequest(now time.Time, resources []RawResourceV3, source string) (*In
 			return nil, err
 		}
 
-		event := &InternalIntakeRequest_Event{
+		event := &internalIntakeRequestEvent{
 			// UUID is set to discard duplicate events in case of retries
-			Uuid:      &wrappers.StringValue{Value: uuid.NewString()},
+			UUID:      &wrappers.StringValue{Value: uuid.NewString()},
 			Payload:   redaplEvent,
-			OrgId:     &wrappers.Int64Value{Value: msg.OrgID},
+			OrgID:     &wrappers.Int64Value{Value: msg.OrgID},
 			Timestamp: &wrappers.Int64Value{Value: now.UnixMilli()},
 		}
 
 		events = append(events, event)
 	}
-	return &InternalIntakeRequest{Events: events}, nil
+	return &internalIntakeRequest{Events: events}, nil
 }
 
-func (c *HTTPRedaplAsyncIntakeClient) getBackoffRetrier() BackoffRetrier {
-	return BackoffRetrier{
+func (c *HTTPRedaplAsyncIntakeClient) getbackoffRetrier() backoffRetrier {
+	return backoffRetrier{
 		Times: c.cfg.MaxRetries,
 		Strategy: BackoffStrategy{
 			InitialWait: []time.Duration{c.cfg.RetryMinInitialWait, c.cfg.RetryMaxInitialWait},
